@@ -2,4 +2,8 @@
 #admin-page {
   padding-top: 0;
 }
+//Fix for bootstrap file inputs
+[hidden] {
+  display: none !important;
+}
 
