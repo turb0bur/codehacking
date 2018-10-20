@@ -13,7 +13,7 @@
         </div>
         <div class="form-group">
             {!! Form::label('category_id', 'Category:') !!}
-            {!! Form::select('category_id',['' => 'Chose a category'] + [0 => 'PHP', 1 => 'JS'], null, ['class' =>'form-control']) !!}
+            {!! Form::select('category_id',['' => 'Chose a category'] + $categories, null, ['class' =>'form-control']) !!}
         </div>
         <div class="form-group">
             {!! Form::label('photo_id', 'Upload a Photo', ['class' => 'btn btn-default']) !!}
