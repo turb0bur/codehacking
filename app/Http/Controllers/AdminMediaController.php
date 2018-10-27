@@ -6,6 +6,7 @@ use App\Photo;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Session;
 
 class AdminMediaController extends Controller
 {
@@ -29,6 +30,22 @@ class AdminMediaController extends Controller
         $file->move('images', $name);
 
         Photo::create(['file' => $name]);
+        Session::flash('user_action', 'Photo was successfully uploaded!');
 
     }
+
+    public function destroy($id)
+    {
+        $photo = Photo::findOrFail($id);
+
+        if ($photo->file) {
+            unlink(public_path() . $photo->file);
+
+            $photo->delete();
+
+            Session::flash('user_action', 'Photo was successfully deleted!');
+        }
+        return redirect('/admin/media');
+    }
+
 }
