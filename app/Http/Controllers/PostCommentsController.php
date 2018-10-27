@@ -18,7 +18,9 @@ class PostCommentsController extends Controller
      */
     public function index()
     {
-        return view('admin.comments.index');
+        $comments = Comment::all();
+
+        return view('admin.comments.index', compact('comments'));
     }
 
     /**
@@ -41,13 +43,13 @@ class PostCommentsController extends Controller
     {
         $user = Auth::user();
 
-        $data = [
-            'post_id'   => $request->post_id,
-            'author'    => $user->name,
-            'email'     => $user->email,
-            'text'      => $request->text,
+        $data       = [
+            'post_id' => $request->post_id,
+            'author'  => $user->name,
+            'email'   => $user->email,
+            'text'    => $request->text,
         ];
-        $comment = Comment::create($data);
+        $comment    = Comment::create($data);
         $post_title = $comment->post->title;
 
         Session::flash('user_action', "Your message has been added to the $post_title post and waiting for moderation!");
@@ -86,7 +88,11 @@ class PostCommentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Comment::findOrFail($id)->update($request->all());
+
+        Session::flash('user_action', "Comment was successfully moderated!");
+
+        return redirect()->back();
     }
 
     /**
@@ -97,6 +103,10 @@ class PostCommentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Comment::findOrFail($id)->delete();
+
+        Session::flash('user_action', "Comment was successfully deleted!");
+
+        return redirect()->back();
     }
 }
