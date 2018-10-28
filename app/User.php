@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Comment', 'author', 'name');
     }
+
+    public function replies()
+    {
+        return $this->hasMany('App\CommentReply', 'author', 'name');
+    }
 }
