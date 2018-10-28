@@ -1,16 +1,11 @@
 @extends('layouts.admin')
 
 @section('header')
-    Replies
+    Comment replies
 @endsection
 
 @section('content')
-    @if(\Illuminate\Support\Facades\Session::has('user_action'))
-        <div class="alert alert-success">
-            {{session('user_action')}}
-        </div>
-    @endif
-    @if(count($replies) >0)
+    @if(count($replies) > 0)
         <table class="table table-striped">
             <thead>
             <tr>

@@ -9,11 +9,11 @@
     @endif
 
     <!-- Title -->
-    <h1>Blog Post Title</h1>
+    <h1>{{$post->title}}</h1>
 
     <!-- Author -->
     <p class="lead">
-        by <a href="#">Start Bootstrap</a>
+        by <a href="#">{{$post->user->name}}</a>
     </p>
 
     <hr>
@@ -60,7 +60,8 @@
             <!-- Comment -->
             <div class="media">
                 <a class="pull-left" href="#">
-                    <img class="media-object" height="64" src="{{$comment->user->photo->file}}" alt="{{$comment->user->name}}">
+                    {{--{!! dd($comment->user) !!}--}}
+                    <img class="media-object" height="64" src="{{$comment->user->photo->file}}" alt="{{$comment->author}}">
                 </a>
                 <div class="media-body">
                     <h4 class="media-heading">{{$comment->author}}
@@ -89,16 +90,18 @@
                     </div>
                     @if (count($comment->replies) > 0)
                         @foreach( $comment->replies as $reply)
-                            <div class="media">
-                                <div class="pull-left">
-                                    <img class="media-object" height="64" src="{{Auth::user()->photo->file}}" alt="{{Auth::user()->name}}">
-                                </div>
-                                <h4 class="media-heading">{{$reply->author}}
-                                    <small>{{$reply->created_at->format('F jS \, Y \a\t g:i A')}}</small>
-                                </h4>
-                                <div>{{$reply->text}}</div>
-                            </div><!-- End Nested Comment -->
-                            <hr>
+                            @if ($reply->is_active)
+                                <div class="media">
+                                    <div class="pull-left">
+                                        <img class="media-object" height="64" src="{{$reply->user->photo->file}}" alt="{{$reply->author}}">
+                                    </div>
+                                    <h4 class="media-heading">{{$reply->author}}
+                                        <small>{{$reply->created_at->format('F jS \, Y \a\t g:i A')}}</small>
+                                    </h4>
+                                    <div>{{$reply->text}}</div>
+                                </div><!-- End Nested Comment -->
+                                <hr>
+                            @endif
                         @endforeach
                     @endif
                     {{--@endif--}}

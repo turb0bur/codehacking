@@ -5,19 +5,18 @@
 @endsection
 
 @section('content')
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Post</th>
-            <th>Author</th>
-            <th>Excerpt</th>
-            <th>Created</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        @if($comments)
+    @if(count($comments) > 0)
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Post</th>
+                <th>Author</th>
+                <th>Excerpt</th>
+                <th>Created</th>
+            </tr>
+            </thead>
+            <tbody>
             @foreach($comments as $comment)
                 <tr>
                     <td>{{$comment->id}}</td>
@@ -38,7 +37,10 @@
                     </td>
                 </tr>
             @endforeach
-        @endif
-        </tbody>
-    </table>
+
+            </tbody>
+        </table>
+    @else
+        <h2 class="text-center">No comments found</h2>
+    @endif
 @endsection

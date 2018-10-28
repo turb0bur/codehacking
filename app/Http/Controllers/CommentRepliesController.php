@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,7 +19,9 @@ class CommentRepliesController extends Controller
      */
     public function index()
     {
-        //
+        $replies = CommentReply::all();
+
+        return view('admin.comments.replies.index', compact('replies'));
     }
 
     /**
@@ -69,7 +72,11 @@ class CommentRepliesController extends Controller
      */
     public function show($id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+
+        $replies = $comment->replies;
+
+        return view('admin.comments.replies.show', compact('replies'));
     }
 
     /**
@@ -92,7 +99,11 @@ class CommentRepliesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        CommentReply::findOrFail($id)->update($request->all());
+
+        Session::flash('user_action', "Reply was successfully moderated!");
+
+        return redirect()->back();
     }
 
     /**
@@ -103,6 +114,10 @@ class CommentRepliesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        CommentReply::findOrFail($id)->delete();
+
+        Session::flash('user_action', "Reply was successfully deleted!");
+
+        return redirect()->back();
     }
 }

@@ -10,26 +10,26 @@
             {{session('user_action')}}
         </div>
     @endif
-
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Post</th>
-            <th>Author</th>
-            <th>Excerpt</th>
-            <th>Created</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        @if($comments)
+    @if(count($comments) > 0)
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Post</th>
+                <th>Author</th>
+                <th>Excerpt</th>
+                <th>Replies</th>
+                <th>Created</th>
+            </tr>
+            </thead>
+            <tbody>
             @foreach($comments as $comment)
                 <tr>
                     <td>{{$comment->id}}</td>
-                    <td><a href="{{route('home.post', $comment->post->id)}}">{{$comment->post->title}}</a></td>
+                    <td><a href="{{route('home.post', $comment->post->id)}}">{{str_limit($comment->post->title, 30)}}</a></td>
                     <td>{{ $comment->author }}</td>
                     <td>{{str_limit($comment->text, 30)}}</td>
+                    <td><a href="{{route('admin.comment.replies.show', $comment->id)}}">View replies</a></td>
                     <td>{{$comment->created_at->diffForHumans()}}</td>
                     <td>
                         {!! Form::model($comment,['method' =>'patch', 'action' => ['PostCommentsController@update', $comment->id]]) !!}
@@ -44,7 +44,10 @@
                     </td>
                 </tr>
             @endforeach
-        @endif
-        </tbody>
-    </table>
+
+            </tbody>
+        </table>
+    @else
+        <tr class="text-center">No comments found</tr>
+    @endif
 @endsection
