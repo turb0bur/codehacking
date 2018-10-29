@@ -61,7 +61,7 @@
             <div class="media">
                 <a class="pull-left" href="#">
                     {{--{!! dd($comment->user) !!}--}}
-                    <img class="media-object" height="64" src="{{$comment->user->photo->file}}" alt="{{$comment->author}}">
+                    <img class="media-object" src="{{$comment->user->gravatar}}" alt="{{$comment->author}}">
                 </a>
                 <div class="media-body">
                     <h4 class="media-heading">{{$comment->author}}
@@ -93,7 +93,7 @@
                             @if ($reply->is_active)
                                 <div class="media">
                                     <div class="pull-left">
-                                        <img class="media-object" height="64" src="{{$reply->user->photo->file}}" alt="{{$reply->author}}">
+                                        <img class="media-object" src="{{$reply->user->gravatar}}" alt="{{$reply->author}}">
                                     </div>
                                     <h4 class="media-heading">{{$reply->author}}
                                         <small>{{$reply->created_at->format('F jS \, Y \a\t g:i A')}}</small>

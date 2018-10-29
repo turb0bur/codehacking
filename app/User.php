@@ -57,4 +57,11 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\CommentReply', 'author', 'name');
     }
+
+    public function getGravatarAttribute()
+    {
+        $hash = md5(strtolower(trim($this->attributes['email']))) . "?d=robohash&s=64";
+
+        return "https://gravatar.com/avatar/$hash";
+    }
 }
