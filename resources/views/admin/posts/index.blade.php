@@ -43,4 +43,10 @@
         @endif
         </tbody>
     </table>
+
+    <div class="row">
+        <div class="col-sm-offset-5 col-sm-2">
+            {{$posts->render()}}
+        </div>
+    </div>
 @endsection
