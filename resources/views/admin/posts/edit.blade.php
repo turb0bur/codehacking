@@ -9,7 +9,7 @@
             <img src="{{$post->photo ? $post->photo->file: 'http://placehold.it/400x400'}}" alt="{{$post->title}}" class="img-responsive img-rounded">
         </div>
         <div class="col-sm-8">
-            {!! Form::model($post, ['method' =>'patch', 'action' => ['AdminPostsController@update', $post->id], 'files' => 'true']) !!}
+            {!! Form::model($post, ['method' =>'patch', 'action' => ['AdminPostsController@update', $post->slug], 'files' => 'true']) !!}
             <div class="form-group">
                 {!! Form::label('title', 'Title:') !!}
                 {!! Form::text('title', null, ['class' =>'form-control']) !!}
@@ -32,7 +32,7 @@
             </div>
             {!! Form::close() !!}
 
-            {!! Form::open(['method' => 'delete', 'action' => ['AdminPostsController@destroy', $post->id]]) !!}
+            {!! Form::open(['method' => 'delete', 'action' => ['AdminPostsController@destroy', $post->slug]]) !!}
             <div class="form-group">
                 {!! Form::submit('Delete Post', ['class' => 'btn btn-danger']) !!}
             </div>

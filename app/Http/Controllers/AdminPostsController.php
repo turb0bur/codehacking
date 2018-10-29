@@ -80,12 +80,12 @@ class AdminPostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  string $slug
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::findBySlugOrIdOrFail($slug);
 
         $categories = Category::lists('name', 'id')->all();
 
@@ -96,14 +96,14 @@ class AdminPostsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param  string                   $slug
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
         $input = $request->all();
 
-        $post = Post::findOrFail($id);
+        $post = Post::findBySlugOrIdOrFail($slug);
 
         if ($file = $request->file('photo_id')) {
             $name = time() . '_' . $file->getClientOriginalName();
@@ -112,7 +112,7 @@ class AdminPostsController extends Controller
 
             $input['photo_id'] = $photo->id;
         }
-        Auth::user()->posts()->whereId($id)->first()->update($input);
+        Auth::user()->posts()->whereSlug($slug)->first()->update($input);
 
         Session::flash('user_action', "User $post->title was successfully updated!");
 
@@ -122,12 +122,12 @@ class AdminPostsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  string $slug
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::findBySlugOrIdOrFail($slug);
 
         if ($post->photo) {
             unlink(public_path() . $post->photo->file);
@@ -140,9 +140,9 @@ class AdminPostsController extends Controller
         return redirect('/admin/posts');
     }
 
-    public function post($id)
+    public function post($slug)
     {
-        $post     = Post::findOrFail($id);
+        $post     = Post::findBySlugOrIdOrFail($slug);
         $comments = $post->comments()->where('is_active', 1)->get();
 
         return view('post', compact('post', 'comments'));
