@@ -24,12 +24,12 @@
     <hr>
 
     <!-- Preview Image -->
-    <img class="img-responsive" src="{{$post->photo->file}}" alt="{{$post->title}}">
+    <img class="img-responsive" src="{{$post->photo ? $post->photo->file : $post->photoPlaceholder()}}" alt="{{$post->title}}">
 
     <hr>
 
     <!-- Post Content -->
-    <div>{{$post->content}}</div>
+    <div>{!! $post->content !!}</div>
 
     <hr>
 
@@ -42,7 +42,7 @@
             {!! Form::hidden('post_id', $post->id) !!}
             <div class="form-group">
                 {!! Form::label('text', 'Leave a Comment:') !!}
-                {!! Form::textarea('text', null,['class' =>'form-control', 'rows' => 3]) !!}
+                {!! Form::textarea('text', null,['class' =>'form-control', 'rows' => 15]) !!}
             </div>
             <div class="form-group">
                 {!! Form::submit('Add comment', ['class' => 'btn btn-primary']) !!}

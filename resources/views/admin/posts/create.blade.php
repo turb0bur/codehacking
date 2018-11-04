@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@include('partials.tinymce_editor')
+
 @section('header')
     Create Post
 @endsection

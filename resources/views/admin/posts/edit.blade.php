@@ -1,12 +1,12 @@
 @extends('layouts.admin')
-
+@include('partials.tinymce_editor')
 @section('header')
     Edit Post
 @endsection
 @section('content')
     <div class="row">
         <div class="col-sm-4">
-            <img src="{{$post->photo ? $post->photo->file: 'http://placehold.it/400x400'}}" alt="{{$post->title}}" class="img-responsive img-rounded">
+            <img src="{{$post->photo ? $post->photo->file : $post->photoPlaceholder()}}" alt="{{$post->title}}" class="img-responsive img-rounded">
         </div>
         <div class="col-sm-8">
             {!! Form::model($post, ['method' =>'patch', 'action' => ['AdminPostsController@update', $post->slug], 'files' => 'true']) !!}
@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 {!! Form::label('content', 'Content:') !!}
-                {!! Form::textarea('content', null,['class' =>'form-control', 'rows' => 5]) !!}
+                {!! Form::textarea('content', null,['class' =>'form-control', 'rows' => 15]) !!}
             </div>
 
             <div class="form-group">
