@@ -65,6 +65,7 @@ Route::group(['middleware' => 'admin'], function () {
         'create' => 'admin.comment.replies.create',
         'store'  => 'admin.comment.replies.store',
         'edit'   => 'admin.comment.replies.edit',
+        'show'   => 'admin.comment.replies.show',
     ]]);
 });
 
