@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
             'role_id'   => 1,
             'is_active' => 1,
             'name'      => 'Volodymyr Butko',
-            'email'     => 'vbutko1991@gmail.com',
+            'email'     => 'butko1991@gmail.com',
             'password'  => bcrypt('Artepass1!')
         ]);
     }
