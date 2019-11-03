@@ -26,9 +26,9 @@
             @foreach($comments as $comment)
                 <tr>
                     <td>{{$comment->id}}</td>
-                    <td><a href="{{route('home.post', $comment->post->id)}}">{{str_limit($comment->post->title, 30)}}</a></td>
+                    <td><a href="{{route('home.post', $comment->post->id)}}">{{\Illuminate\Support\Str::limit($comment->post->title, 30)}}</a></td>
                     <td>{{ $comment->author }}</td>
-                    <td>{{str_limit($comment->text, 30)}}</td>
+                    <td>{{\Illuminate\Support\Str::limit($comment->text, 30)}}</td>
                     <td><a href="{{route('admin.comment.replies.show', $comment->id)}}">View replies</a></td>
                     <td>{{$comment->created_at->diffForHumans()}}</td>
                     <td>

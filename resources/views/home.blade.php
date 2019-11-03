@@ -20,7 +20,7 @@
                         <img class="img-responsive" src="{{$post->photo ? $post->photo->file : $post->photoPlaceholder()}}" alt="{{$post->title}}">
                         <hr>
                     <div>
-                        {!! str_limit($post->content, 100) !!}
+                        {!! \Illuminate\Support\Str::limit($post->content, 100) !!}
                     </div>
                         {{--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>--}}
                         <a class="btn btn-primary" href="/post/{{$post->slug}}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>

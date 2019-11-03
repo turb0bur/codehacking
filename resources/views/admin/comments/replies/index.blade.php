@@ -25,9 +25,9 @@
             @foreach($replies as $reply)
                 <tr>
                     <td>{{$reply->id}}</td>
-                    <td><a href="{{route('home.post', $reply->comment->post->id)}}">{{str_limit($reply->comment->post->title, 30)}}</a></td>
+                    <td><a href="{{route('home.post', $reply->comment->post->id)}}">{{\Illuminate\Support\Str::limit($reply->comment->post->title, 30)}}</a></td>
                     <td>{{ $reply->author }}</td>
-                    <td>{{str_limit($reply->text, 30)}}</td>
+                    <td>{{\Illuminate\Support\Str::limit($reply->text, 30)}}</td>
                     <td>{{$reply->created_at->diffForHumans()}}</td>
                     <td>
                         {!! Form::model($reply,['method' =>'patch', 'action' => ['CommentRepliesController@update', $reply->id]]) !!}

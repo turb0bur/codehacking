@@ -22,7 +22,7 @@
                     <td>{{$comment->id}}</td>
                     <td><a href="{{route('home.post', $comment->post->id)}}">{{$comment->post->title}}</a></td>
                     <td>{{ $comment->author }}</td>
-                    <td>{{str_limit($comment->text, 30)}}</td>
+                    <td>{{\Illuminate\Support\Str::limit($comment->text, 30)}}</td>
                     <td>{{$comment->created_at->diffForHumans()}}</td>
                     <td>
                         {!! Form::model($comment,['method' =>'patch', 'action' => ['PostCommentsController@update', $comment->id]]) !!}
